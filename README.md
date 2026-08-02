@@ -1,6 +1,7 @@
 # 404-Ryo.github.io
 
-Ryo Nishikawa の個人ポートフォリオサイトです。スキルや作品を紹介しています。
+Ryo の個人ポートフォリオサイトです。
+ギリシャ神話をモチーフにしたアニメーションヒーローから、自己紹介・代表制作物・スキル・連絡先へ続く日英対応のエディトリアルデザインです。
 
 ## 見る
 
@@ -8,6 +9,16 @@ Ryo Nishikawa の個人ポートフォリオサイトです。スキルや作品
 
 ## 使用技術
 
-- HTML / CSS
-- Google Fonts（Inter, Lora, JetBrains Mono, Noto Sans JP）
+- Vite
+- React + TypeScript
+- Tailwind CSS
+- Lucide React
 
+## 開発
+
+```bash
+npm install
+npm run dev
+```
+
+本番ビルドは `npm run build`、`main` ブランチへの push 後は GitHub Actions から Pages へ公開されます。
