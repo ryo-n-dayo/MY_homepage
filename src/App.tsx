@@ -39,7 +39,7 @@ const copy = {
         href: 'https://github.com/ryo-n-dayo/Gym_app_ios',
       },
       {
-        badge: 'CL',
+        badge: 'CR',
         name: 'Career Radar',
         sub: 'Web アプリ · 個人開発',
         period: '2025 — 現在',
@@ -102,7 +102,7 @@ const copy = {
         href: 'https://github.com/ryo-n-dayo/Gym_app_ios',
       },
       {
-        badge: 'CL',
+        badge: 'CR',
         name: 'Career Radar',
         sub: 'Web app · Personal project',
         period: '2025 — Present',
