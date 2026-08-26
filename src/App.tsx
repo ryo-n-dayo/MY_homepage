@@ -11,6 +11,7 @@ type Entry = {
   text?: string
   stack?: string
   href?: string
+  linkLabel?: string
 }
 
 const links = {
@@ -36,7 +37,8 @@ const copy = {
         period: '2025 — 現在',
         text: '重量・回数・休憩を素早く記録できるトレーニングアプリ。履歴カレンダー、成長グラフ、Live Activity のレストタイマーを実装。記録は端末内に保存。',
         stack: 'Swift · SwiftUI · SwiftData · HealthKit',
-        href: 'https://github.com/ryo-n-dayo/Gym_app_ios',
+        href: 'https://ryo-n-dayo.github.io/Gymgrind/',
+        linkLabel: '詳細',
       },
       {
         badge: 'CR',
@@ -99,7 +101,8 @@ const copy = {
         period: '2025 — Present',
         text: 'A training app for quickly logging weights, reps, and rest. Includes a history calendar, progress charts, and a Live Activity rest timer. Data stays on the device.',
         stack: 'Swift · SwiftUI · SwiftData · HealthKit',
-        href: 'https://github.com/ryo-n-dayo/Gym_app_ios',
+        href: 'https://ryo-n-dayo.github.io/Gymgrind/',
+        linkLabel: 'Details',
       },
       {
         badge: 'CR',
@@ -186,7 +189,7 @@ function EntryList({ items, repoLabel, badgeIcon }: { items: readonly Entry[]; r
                 rel="noreferrer"
                 className="mt-3 inline-flex items-center gap-1 text-xs opacity-55 transition-opacity hover:opacity-100"
               >
-                {repoLabel}<ArrowUpRight size={13} />
+                {item.linkLabel ?? repoLabel}<ArrowUpRight size={13} />
               </a>
             )}
           </div>
