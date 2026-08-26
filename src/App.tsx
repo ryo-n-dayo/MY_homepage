@@ -1,161 +1,204 @@
 import { useEffect, useState } from 'react'
-import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Briefcase, Calendar, FolderGit2, Languages, Mail, Moon, Sun, Trophy } from 'lucide-react'
 
 type Language = 'ja' | 'en'
 
+type Entry = {
+  badge: string
+  name: string
+  sub: string
+  period: string
+  text?: string
+  stack?: string
+  href?: string
+}
+
+const links = {
+  email: 'mailto:ppajt5zzcf@gmail.com',
+  github: 'https://github.com/ryo-n-dayo',
+}
+
 const copy = {
   ja: {
-    nav: ['ホーム', '自己紹介', '制作物', '連絡'],
-    hero: {
-      eyebrow: 'Cyber Security Student / Product Builder',
-      title: 'Ryoの\nPortfolio.',
-      note: '安全性と使いやすさを両立し、アイデアを日常で使えるプロダクトへ変えていきます。',
-      cta: '制作物を見る',
-      myth: 'Code / Security / Creation',
-      scroll: 'スクロール',
-    },
-    about: {
-      label: '自己紹介',
-      heading: '複雑な課題を、\n使いやすい形にする。',
-      paragraphs: [
-        'マレーシアでComputer Scienceを学ぶ大学生です。専攻はCyber Security。安全なシステムの考え方を軸に、WebとiOSのプロダクト開発にも取り組んでいます。',
-        '機能を増やすことより、ユーザーがどこで迷うかを見つけることを大切にしています。課題の整理、UI設計、実装、検証まで、自分の手で一つずつ形にします。',
-      ],
-      focus: ['Cyber Security', 'Product Development', 'Human-centered UI'],
-    },
-    works: {
-      label: '代表制作物',
-      heading: 'Selected\nProjects.',
-      intro: '自分自身が感じた不便から出発し、実際に使い続けられる体験を目指して作った2つのプロダクトです。',
-      role: '担当',
-      stack: '技術',
-      repository: 'リポジトリを見る',
-    },
-    projects: [
+    role: 'Computer Science 学生 / プロダクト開発',
+    works: 'Works',
+    awards: 'Awards',
+    career: 'Career',
+    languages: 'Languages',
+    repo: 'リポジトリ',
+    theme: 'テーマ切り替え',
+    // 制作物：新しいものを上に追加していく
+    items: [
       {
+        badge: 'GG',
         name: 'Gymgrind',
-        type: 'iOS / Personal Project',
-        tagline: '記録の面倒を減らし、トレーニングだけに集中する。',
-        description: 'ワークアウト内容、重量、回数、休憩時間を素早く記録できるiOSアプリです。履歴カレンダー、種目別の成長グラフ、Live Activityのレストタイマー、オンデバイスAI分析まで実装。アカウント不要で、記録は端末内に保存します。',
-        role: '企画・UI設計・iOS実装・リリース準備',
-        stack: 'Swift / SwiftUI / SwiftData / HealthKit / ActivityKit',
+        sub: 'iOS アプリ · 個人開発',
+        period: '2025 — 現在',
+        text: '重量・回数・休憩を素早く記録できるトレーニングアプリ。履歴カレンダー、成長グラフ、Live Activity のレストタイマーを実装。記録は端末内に保存。',
+        stack: 'Swift · SwiftUI · SwiftData · HealthKit',
+        href: 'https://github.com/ryo-n-dayo/Gym_app_ios',
       },
       {
-        name: 'Career Leader',
-        type: 'Web / Personal Project',
-        tagline: '情報を探す時間を減らし、次の行動を見えるようにする。',
-        description: '企業サイト、SNS、メールなどに分散する就職活動の情報を、一つの画面で管理するWebアプリです。締切の可視化、企業比較、AI要約、Gmail・Google Calendar連携を実装し、「次に何をするべきか」を判断しやすくしました。',
-        role: '課題設定・UI設計・フロントエンド・API・DB',
-        stack: 'JavaScript / TypeScript / Next.js / React / Prisma',
+        badge: 'CL',
+        name: 'Career Radar',
+        sub: 'Web アプリ · 個人開発',
+        period: '2025 — 現在',
+        text: '就職活動の情報を 1 画面にまとめる Web アプリ。締切の可視化、企業比較、AI 要約、カレンダー連携で「次にやること」を分かりやすくしました。',
+        stack: 'TypeScript · Next.js · React · Prisma',
+        href: 'https://github.com/ryo-n-dayo/Career_Radar',
       },
+    ] as Entry[],
+    // 受賞：新しいものを上に追加していく
+    awardItems: [
+      {
+        badge: '',
+        name: 'サイボウズ特別賞',
+        sub: 'try! Swift Tokyo 2026 ハッカソン for Students',
+        period: '2026年4月',
+        text: '5人チームで高齢者向け iOS コミュニケーションアプリ「れんらくさき」を 1 日で開発。機能を「電話」と「トーク」に絞った UI 設計と、端末を近づけるだけで連絡先を交換できるオンボーディングを担当しました。',
+        stack: 'Swift · SwiftUI · MultipeerConnectivity',
+        href: 'https://github.com/ryo-n-dayo/IOSapp',
+      },
+      {
+        badge: '',
+        name: 'サポーターズ賞',
+        sub: '技育CAMPハッカソン 2026年度 Vol.2 · 株式会社サポーターズ',
+        period: '2026年4月',
+        text: '就活情報を一元管理する Web アプリ「Career Radar」を個人開発し、50 チームが参加したオンラインハッカソンで受賞しました。',
+        stack: 'TypeScript · Next.js · React · Prisma',
+        href: 'https://github.com/ryo-n-dayo/Career_Radar',
+      },
+    ] as Entry[],
+    // 経歴：インターンや就業経験が増えたらここに追加
+    careerItems: [
+      {
+        badge: 'CS',
+        name: 'Computer Science 専攻',
+        sub: '大学 · Cyber Security',
+        period: '在学中',
+      },
+    ] as Entry[],
+    languageItems: [
+      ['日本語', 'ネイティブ'],
+      ['英語', 'ビジネスレベル'],
     ],
-    skills: {
-      label: '使える技術',
-      heading: 'Core\nLanguages.',
-      note: '授業・個人開発・チーム開発で使用している主要言語。',
-      items: [
-        ['Java', 'オブジェクト指向、JavaFX、API通信'],
-        ['C++', 'データ構造、アルゴリズム、計算量'],
-        ['Swift', 'SwiftUI、iOS、端末内データ管理'],
-        ['JavaScript', 'React、Next.js、Web UI、API連携'],
-      ],
-      major: '専攻',
-      majorValue: 'Cyber Security',
-      foundations: '基礎領域',
-      foundationsValue: 'Network / OS / Database / DSA',
-    },
-    contact: {
-      label: '連絡先',
-      heading: 'Contact.',
-      note: 'プロジェクト、インターン、技術についてのご連絡はこちらから。',
-      email: 'メール',
-      github: 'GitHub',
-      back: 'トップへ戻る',
-    },
   },
   en: {
-    nav: ['Home', 'About', 'Works', 'Contact'],
-    hero: {
-      eyebrow: 'Cyber Security Student / Product Builder',
-      title: "Ryo's\nPortfolio.",
-      note: 'I turn ideas into useful products where security and usability move forward together.',
-      cta: 'Explore my work',
-      myth: 'Code / Security / Creation',
-      scroll: 'Scroll',
-    },
-    about: {
-      label: 'About',
-      heading: 'Making complex\nproblems usable.',
-      paragraphs: [
-        'I am a Computer Science student in Malaysia, majoring in Cyber Security. Alongside secure system design, I build web and iOS products.',
-        'I care less about adding more features and more about finding where people get stuck. I work through problem framing, interface design, implementation, and validation to turn an idea into something usable.',
-      ],
-      focus: ['Cyber Security', 'Product Development', 'Human-centered UI'],
-    },
-    works: {
-      label: 'Selected Works',
-      heading: 'Selected\nProjects.',
-      intro: 'Two products that began with problems I experienced firsthand and were shaped into tools designed for repeated, everyday use.',
-      role: 'Role',
-      stack: 'Stack',
-      repository: 'View repository',
-    },
-    projects: [
+    role: 'Computer Science Student / Product Builder',
+    works: 'Works',
+    awards: 'Awards',
+    career: 'Career',
+    languages: 'Languages',
+    repo: 'Repository',
+    theme: 'Toggle theme',
+    items: [
       {
+        badge: 'GG',
         name: 'Gymgrind',
-        type: 'iOS / Personal Project',
-        tagline: 'Spend less time logging and more time training.',
-        description: 'An iOS app for quickly logging exercises, weights, reps, and rest time. It includes a workout calendar, progress charts, a Live Activity rest timer, and on-device AI analysis. No account is required and workout data stays on the device.',
-        role: 'Concept, UI design, iOS development, release preparation',
-        stack: 'Swift / SwiftUI / SwiftData / HealthKit / ActivityKit',
+        sub: 'iOS app · Personal project',
+        period: '2025 — Present',
+        text: 'A training app for quickly logging weights, reps, and rest. Includes a history calendar, progress charts, and a Live Activity rest timer. Data stays on the device.',
+        stack: 'Swift · SwiftUI · SwiftData · HealthKit',
+        href: 'https://github.com/ryo-n-dayo/Gym_app_ios',
       },
       {
-        name: 'Career Leader',
-        type: 'Web / Personal Project',
-        tagline: 'Spend less time searching and make the next action visible.',
-        description: 'A web app that brings career information from company sites, social media, and email into one workspace. Deadline visualization, company comparison, AI summaries, Gmail, and Google Calendar integrations make the next action easier to identify.',
-        role: 'Problem framing, UI, frontend, APIs, and database',
-        stack: 'JavaScript / TypeScript / Next.js / React / Prisma',
+        badge: 'CL',
+        name: 'Career Radar',
+        sub: 'Web app · Personal project',
+        period: '2025 — Present',
+        text: 'A web app that brings job-hunting information into one screen: deadline visibility, company comparison, AI summaries, and calendar sync to clarify the next action.',
+        stack: 'TypeScript · Next.js · React · Prisma',
+        href: 'https://github.com/ryo-n-dayo/Career_Radar',
       },
+    ] as Entry[],
+    awardItems: [
+      {
+        badge: '',
+        name: 'Cybozu Special Award',
+        sub: 'try! Swift Tokyo 2026 Hackathon for Students',
+        period: 'Apr 2026',
+        text: 'Built "Renrakusaki", an iOS communication app for older users, with a team of five in one day. I designed the pared-down UI and an onboarding flow that exchanges contacts by simply holding two devices close together.',
+        stack: 'Swift · SwiftUI · MultipeerConnectivity',
+        href: 'https://github.com/ryo-n-dayo/IOSapp',
+      },
+      {
+        badge: '',
+        name: 'Supporterz Award',
+        sub: 'Giiku CAMP Hackathon 2026 Vol.2 · Supporterz, Inc.',
+        period: 'Apr 2026',
+        text: 'Won for Career Radar, a web app that keeps job-hunting information in one place, at an online hackathon with 50 participating teams.',
+        stack: 'TypeScript · Next.js · React · Prisma',
+        href: 'https://github.com/ryo-n-dayo/Career_Radar',
+      },
+    ] as Entry[],
+    careerItems: [
+      {
+        badge: 'CS',
+        name: 'BSc Computer Science',
+        sub: 'University · Cyber Security',
+        period: 'Current',
+      },
+    ] as Entry[],
+    languageItems: [
+      ['Japanese', 'Native'],
+      ['English', 'Business level'],
     ],
-    skills: {
-      label: 'Toolkit',
-      heading: 'Core\nLanguages.',
-      note: 'The main languages I use across coursework, personal products, and team development.',
-      items: [
-        ['Java', 'Object-oriented design, JavaFX, API communication'],
-        ['C++', 'Data structures, algorithms, complexity'],
-        ['Swift', 'SwiftUI, iOS, on-device data'],
-        ['JavaScript', 'React, Next.js, web UI, API integration'],
-      ],
-      major: 'Major',
-      majorValue: 'Cyber Security',
-      foundations: 'Foundations',
-      foundationsValue: 'Network / OS / Database / DSA',
-    },
-    contact: {
-      label: 'Contact',
-      heading: 'Contact.',
-      note: 'For projects, internships, or conversations about technology.',
-      email: 'Email',
-      github: 'GitHub',
-      back: 'Back to top',
-    },
   },
 } as const
 
-const navHrefs = ['#home', '#about', '#works', '#contact']
-
-function ExternalLink({ href, children, className = '' }: { href: string; children: React.ReactNode; className?: string }) {
-  return <a href={href} className={className} target="_blank" rel="noreferrer">{children}</a>
+function GithubIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+      <path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.07.78 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z" />
+    </svg>
+  )
 }
 
-function SectionLabel({ number, children }: { number: string; children: React.ReactNode }) {
-  return <div className="section-label"><span>{number}</span><span>{children}</span></div>
+function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+  return (
+    <section className="mt-12">
+      <h2 className="section-label">{icon}{title}</h2>
+      <div className="mt-5">{children}</div>
+    </section>
+  )
+}
+
+function EntryList({ items, repoLabel, badgeIcon }: { items: readonly Entry[]; repoLabel: string; badgeIcon?: React.ReactNode }) {
+  return (
+    <div className="space-y-8">
+      {items.map((item) => (
+        <article key={item.name} className="flex gap-4">
+          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/10 text-[11px] font-semibold tracking-wide dark:border-white/15">
+            {badgeIcon ?? item.badge}
+          </div>
+          <div className="min-w-0">
+            <h3 className="font-semibold">{item.name}</h3>
+            <p className="mt-0.5 text-sm opacity-70">{item.sub}</p>
+            <p className="mt-1 flex items-center gap-1.5 text-xs opacity-40">
+              <Calendar size={12} />{item.period}
+            </p>
+            {item.text && <p className="mt-2 text-sm leading-7 opacity-80">{item.text}</p>}
+            {item.stack && <p className="mt-2 text-xs opacity-40">{item.stack}</p>}
+            {item.href && (
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-3 inline-flex items-center gap-1 text-xs opacity-55 transition-opacity hover:opacity-100"
+              >
+                {repoLabel}<ArrowUpRight size={13} />
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  )
 }
 
 function App() {
   const [language, setLanguage] = useState<Language>('ja')
+  const [dark, setDark] = useState(false)
   const t = copy[language]
 
   useEffect(() => {
@@ -163,168 +206,72 @@ function App() {
   }, [language])
 
   useEffect(() => {
-    const elements = document.querySelectorAll<HTMLElement>('[data-reveal]')
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible')
-          observer.unobserve(entry.target)
-        }
-      })
-    }, { threshold: 0.12 })
-    elements.forEach((element) => observer.observe(element))
-    return () => observer.disconnect()
-  }, [language])
+    document.documentElement.classList.toggle('dark', dark)
+  }, [dark])
 
   return (
-    <main className="w-full overflow-x-hidden bg-[#17131d] font-hn text-cream">
-      <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-4 sm:pt-5">
-        <div className="top-dock flex max-w-full items-center gap-1 rounded-full border border-white/20 bg-[#111]/75 p-1.5 text-[10px] uppercase tracking-[0.08em] text-white shadow-2xl backdrop-blur-xl sm:gap-2 sm:text-xs">
-          <a href="#home" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[#111]">R</a>
-          <nav className="flex items-center" aria-label="Main navigation">
-            {t.nav.map((label, index) => (
-              <a key={label} href={navHrefs[index]} className="dock-link rounded-full px-2.5 py-2 transition-colors duration-300 hover:bg-white hover:text-[#111] sm:px-4">{label}</a>
-            ))}
-          </nav>
-          <div className="ml-1 flex items-center rounded-full border border-white/20 p-0.5" aria-label="Language selection">
-            {(['ja', 'en'] as const).map((lang) => (
-              <button key={lang} type="button" onClick={() => setLanguage(lang)} className={`rounded-full px-2 py-1.5 transition-all duration-300 ${language === lang ? 'bg-white text-[#111]' : 'text-white/55 hover:text-white'}`} aria-pressed={language === lang}>{lang.toUpperCase()}</button>
-            ))}
+    <main className="mx-auto w-full max-w-2xl px-5 pb-16 pt-8 sm:px-8 sm:pt-12">
+      <header className="anim">
+        <div className="flex h-28 items-center justify-center rounded-2xl border border-black/[0.06] bg-[#fafafa] sm:h-32 dark:border-white/10 dark:bg-white/[0.04]">
+          <span className="font-serif text-2xl tracking-tight opacity-25">Ryo</span>
+        </div>
+
+        <div className="-mt-10 flex items-end justify-between pl-1">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-[#18181a] font-serif text-3xl text-white dark:border-[#121213] dark:bg-[#ededea] dark:text-[#121213]">
+            R
+          </div>
+          <div className="flex items-center gap-1">
+            <button type="button" onClick={() => setDark((v) => !v)} className="icon-link" aria-label={t.theme}>
+              {dark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+            <a href={links.email} className="icon-link" aria-label="Email"><Mail size={16} /></a>
+            <a href={links.github} target="_blank" rel="noreferrer" className="icon-link" aria-label="GitHub"><GithubIcon /></a>
+            <div className="ml-1 flex items-center gap-1 text-[11px] font-medium">
+              {(['ja', 'en'] as const).map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => setLanguage(lang)}
+                  aria-pressed={language === lang}
+                  className={`rounded-full px-2 py-1 transition-opacity ${language === lang ? 'opacity-100 underline underline-offset-4' : 'opacity-40 hover:opacity-70'}`}
+                >
+                  {lang.toUpperCase()}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
+
+        <h1 className="mt-4 font-serif text-3xl tracking-tight">Ryo</h1>
+        <p className="mt-1.5 text-sm opacity-55">{t.role}</p>
       </header>
 
-      <section id="home" className="relative h-[100dvh] min-h-[680px] overflow-hidden bg-[#0d0d12] p-2 sm:p-3">
-        <div className="myth-hero-frame relative h-full overflow-hidden rounded-[18px] sm:rounded-[24px]">
-          <img src="/olympus-gate-hero.png" alt="雲海の上に立つオリンポスへの大理石の門" className="myth-hero-image absolute inset-0 h-full w-full object-cover" />
-          <div className="myth-hero-shade absolute inset-0" aria-hidden="true" />
-          <div className="myth-halo absolute left-1/2 top-1/2 h-[36vw] w-[36vw] min-h-72 min-w-72 -translate-x-1/2 -translate-y-1/2 rounded-full" aria-hidden="true" />
-          <div className="myth-mist myth-mist-back absolute inset-x-[-35%] bottom-[34%] h-[24%]" aria-hidden="true" />
-          <div className="myth-mist myth-mist-one absolute inset-x-[-35%] bottom-[12%] h-[34%]" aria-hidden="true" />
-          <div className="myth-mist myth-mist-two absolute inset-x-[-38%] bottom-[-12%] h-[45%]" aria-hidden="true" />
-          <div className="myth-grain absolute inset-0" aria-hidden="true" />
-          <div className="myth-motes absolute inset-0" aria-hidden="true">
-            <i /><i /><i /><i /><i /><i />
-          </div>
+      <Section icon={<FolderGit2 size={13} />} title={t.works}>
+        <EntryList items={t.items} repoLabel={t.repo} />
+      </Section>
 
-          <div className="absolute inset-0 z-20 flex flex-col px-5 pb-6 pt-24 text-white sm:px-10 sm:pb-9 sm:pt-28 lg:px-14">
-            <div className="anim-fade-up flex items-center gap-3 text-[9px] uppercase tracking-[0.25em] text-white/70 [animation-delay:300ms]">
-              <span className="h-px w-8 bg-white/60" />
-              <span>{t.hero.eyebrow}</span>
+      <Section icon={<Trophy size={13} />} title={t.awards}>
+        <EntryList items={t.awardItems} repoLabel={t.repo} badgeIcon={<Trophy size={14} />} />
+      </Section>
+
+      <Section icon={<Briefcase size={13} />} title={t.career}>
+        <EntryList items={t.careerItems} repoLabel={t.repo} />
+      </Section>
+
+      <Section icon={<Languages size={13} />} title={t.languages}>
+        <dl className="space-y-3 text-sm">
+          {t.languageItems.map(([label, level]) => (
+            <div key={label} className="flex gap-4">
+              <dt className="w-24 shrink-0 opacity-45">{label}</dt>
+              <dd className="opacity-85">{level}</dd>
             </div>
+          ))}
+        </dl>
+      </Section>
 
-            <div className="my-auto max-w-[44rem] pb-12 sm:pb-4">
-              <p className="anim-fade-up mb-4 font-serif text-xs italic tracking-[0.16em] text-[#f1d9aa] [animation-delay:450ms]">{t.hero.myth}</p>
-              <h1 className={`myth-title anim-fade-up whitespace-pre-line leading-[0.86] tracking-[-0.065em] [animation-delay:550ms] ${language === 'ja' ? 'text-[clamp(3.3rem,7vw,8rem)]' : 'text-[clamp(3.3rem,7.8vw,8.5rem)]'}`}>{t.hero.title}</h1>
-              <p className="anim-fade-up mt-7 max-w-md text-sm leading-7 text-white/75 [animation-delay:700ms] sm:text-base">{t.hero.note}</p>
-              <a href="#works" className="myth-cta anim-fade-up mt-8 inline-flex items-center gap-3 rounded-full border border-white/35 bg-white/10 px-5 py-3 text-[10px] uppercase tracking-[0.18em] backdrop-blur-md [animation-delay:800ms]">
-                {t.hero.cta}<ArrowDown size={14} strokeWidth={1.5} />
-              </a>
-            </div>
-
-            <div className="flex items-end justify-between gap-8 text-[9px] uppercase tracking-[0.2em] text-white/55">
-              <span>Ryo Nishikawa &nbsp; / &nbsp; 2026</span>
-              <a href="#about" className="inline-flex items-center gap-2 text-white/85">{t.hero.scroll}<ArrowDown size={13} strokeWidth={1.5} /></a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="myth-section myth-section-light px-6 py-24 text-[#29232d] sm:px-10 sm:py-32">
-        <div className="relative z-10 mx-auto max-w-[1440px]">
-          <SectionLabel number="01">{t.about.label}</SectionLabel>
-          <div className="mt-14 grid gap-14 lg:grid-cols-12 lg:gap-10" data-reveal>
-            <h2 className="editorial-heading whitespace-pre-line lg:col-span-8">{t.about.heading}</h2>
-            <div className="space-y-7 text-base leading-[1.9] lg:col-span-4 lg:pt-2 lg:text-lg">{t.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-          </div>
-          <div className="myth-glass-light mt-24 grid overflow-hidden rounded-[22px] border border-[#75677f]/25 md:grid-cols-3" data-reveal>
-            {t.about.focus.map((item, index) => <div key={item} className={`py-7 px-6 text-lg ${index ? 'border-t border-[#75677f]/25 md:border-l md:border-t-0' : ''}`}>0{index + 1}&nbsp;&nbsp;{item}</div>)}
-          </div>
-        </div>
-      </section>
-
-      <section id="works" className="myth-section myth-section-dark px-6 py-24 sm:px-10 sm:py-32">
-        <div className="relative z-10 mx-auto max-w-[1440px]">
-          <SectionLabel number="02">{t.works.label}</SectionLabel>
-          <div className="mt-14 grid items-end gap-10 border-b border-white/25 pb-14 lg:grid-cols-12" data-reveal>
-            <h2 className="editorial-heading whitespace-pre-line lg:col-span-8">{t.works.heading}</h2>
-            <p className="max-w-md text-sm leading-7 text-white/60 lg:col-span-4">{t.works.intro}</p>
-          </div>
-
-          <article className="myth-project-card my-10 p-6 sm:p-10 lg:p-12" data-reveal>
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="order-2 lg:order-1 lg:col-span-5">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/45">01 / {t.projects[0].type}</p>
-                <h3 className="myth-project-title mt-7 text-[clamp(3.8rem,7vw,7.5rem)] leading-none tracking-[-0.065em]">{t.projects[0].name}</h3>
-                <p className="mt-6 text-xl leading-8">{t.projects[0].tagline}</p>
-                <p className="mt-8 max-w-xl text-base leading-8 text-white/62">{t.projects[0].description}</p>
-                <dl className="mt-10 space-y-4 border-t border-white/20 pt-6 text-sm"><div className="grid grid-cols-[5rem_1fr] gap-4"><dt className="text-white/40">{t.works.role}</dt><dd>{t.projects[0].role}</dd></div><div className="grid grid-cols-[5rem_1fr] gap-4"><dt className="text-white/40">{t.works.stack}</dt><dd>{t.projects[0].stack}</dd></div></dl>
-                <ExternalLink href="https://github.com/404-Ryo/Gym_app_ios" className="mt-10 inline-flex items-center gap-2 border-b border-white pb-1 text-sm">{t.works.repository}<ArrowUpRight size={16} /></ExternalLink>
-              </div>
-              <div className="myth-media order-1 overflow-hidden rounded-[22px] lg:order-2 lg:col-span-7">
-                <div className="flex h-[620px] items-start justify-center gap-2 overflow-hidden px-4 pt-10 sm:h-[760px] sm:gap-4 sm:px-8">
-                  <img src="/gymgrind-1.png" alt="Gymgrind home screen" className="w-[55%] max-w-[390px] -rotate-3 shadow-2xl" />
-                  <img src="/gymgrind-3.png" alt="Gymgrind progress screen" className="mt-24 w-[55%] max-w-[390px] rotate-3 shadow-2xl" />
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article className="myth-project-card my-10 p-6 sm:p-10 lg:p-12" data-reveal>
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="myth-media overflow-hidden rounded-[22px] lg:col-span-7"><img src="/career-radar.png" alt="Career Leader dashboard" className="h-full min-h-[420px] w-full object-cover object-left" /></div>
-              <div className="lg:col-span-5">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/45">02 / {t.projects[1].type}</p>
-                <h3 className="myth-project-title mt-7 text-[clamp(3.4rem,6vw,6.5rem)] leading-[0.9] tracking-[-0.065em]">{t.projects[1].name}</h3>
-                <p className="mt-6 text-xl leading-8">{t.projects[1].tagline}</p>
-                <p className="mt-8 max-w-xl text-base leading-8 text-white/62">{t.projects[1].description}</p>
-                <dl className="mt-10 space-y-4 border-t border-white/20 pt-6 text-sm"><div className="grid grid-cols-[5rem_1fr] gap-4"><dt className="text-white/40">{t.works.role}</dt><dd>{t.projects[1].role}</dd></div><div className="grid grid-cols-[5rem_1fr] gap-4"><dt className="text-white/40">{t.works.stack}</dt><dd>{t.projects[1].stack}</dd></div></dl>
-                <ExternalLink href="https://github.com/404-Ryo/Career_Radar" className="mt-10 inline-flex items-center gap-2 border-b border-white pb-1 text-sm">{t.works.repository}<ArrowUpRight size={16} /></ExternalLink>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section className="myth-section myth-section-light px-6 py-24 text-[#29232d] sm:px-10 sm:py-32">
-        <div className="relative z-10 mx-auto max-w-[1440px]">
-          <SectionLabel number="03">{t.skills.label}</SectionLabel>
-          <div className="mt-14 grid gap-14 lg:grid-cols-12" data-reveal>
-            <div className="lg:col-span-6"><h2 className="editorial-heading whitespace-pre-line">{t.skills.heading}</h2><p className="mt-8 max-w-sm text-sm leading-7">{t.skills.note}</p></div>
-            <div className="myth-glass-light overflow-hidden rounded-[22px] border border-[#75677f]/25 lg:col-span-6">
-              {t.skills.items.map(([name, detail], index) => <div key={name} className="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-[#75677f]/25 px-6 py-6 last:border-0 sm:grid-cols-[3.5rem_10rem_1fr]"><span className="text-xs opacity-45">0{index + 1}</span><strong className="text-2xl font-normal sm:text-3xl">{name}</strong><span className="col-start-2 text-sm leading-6 opacity-60 sm:col-start-3">{detail}</span></div>)}
-            </div>
-          </div>
-          <div className="myth-glass-light mt-20 grid overflow-hidden rounded-[22px] border border-[#75677f]/25 sm:grid-cols-2" data-reveal><div className="p-6 sm:p-8"><p className="text-[10px] uppercase tracking-[0.2em] opacity-45">{t.skills.major}</p><p className="mt-8 text-3xl">{t.skills.majorValue}</p></div><div className="border-t border-[#75677f]/25 p-6 sm:border-l sm:border-t-0 sm:p-8"><p className="text-[10px] uppercase tracking-[0.2em] opacity-45">{t.skills.foundations}</p><p className="mt-8 text-2xl sm:text-3xl">{t.skills.foundationsValue}</p></div></div>
-        </div>
-      </section>
-
-      <section id="contact" className="myth-section myth-contact-footer px-6 py-20 text-white sm:px-10 sm:py-24">
-        <div className="relative z-10 mx-auto max-w-[1440px]">
-          <SectionLabel number="04">{t.contact.label}</SectionLabel>
-          <div className="mt-14 grid items-end gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <h2 className="editorial-heading">{t.contact.heading}</h2>
-              <p className="mt-7 max-w-md text-sm leading-7 text-white/60">{t.contact.note}</p>
-            </div>
-            <div className="grid gap-3 lg:col-span-5">
-              <a href="mailto:ppajt5zzcf@gmail.com" className="contact-link group flex items-center justify-between rounded-2xl border border-white/20 px-5 py-5">
-                <span><small className="block text-[9px] uppercase tracking-[0.2em] text-white/45">{t.contact.email}</small><strong className="mt-2 block font-normal">ppajt5zzcf@gmail.com</strong></span>
-                <ArrowUpRight className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" size={22} strokeWidth={1.4} />
-              </a>
-              <ExternalLink href="https://github.com/404-Ryo" className="contact-link group flex items-center justify-between rounded-2xl border border-white/20 px-5 py-5">
-                <span><small className="block text-[9px] uppercase tracking-[0.2em] text-white/45">{t.contact.github}</small><strong className="mt-2 block font-normal">github.com/404-Ryo</strong></span>
-                <ArrowUpRight className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" size={22} strokeWidth={1.4} />
-              </ExternalLink>
-            </div>
-          </div>
-          <footer className="mt-20 flex flex-col gap-4 border-t border-white/20 pt-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
-            <span>© 2026 Ryo Nishikawa</span>
-            <a href="#home" className="transition-colors hover:text-white">{t.contact.back} ↑</a>
-          </footer>
-        </div>
-      </section>
-
+      <footer className="mt-14 border-t border-black/[0.08] pt-5 text-xs opacity-35 dark:border-white/10">
+        © 2026 Ryo
+      </footer>
     </main>
   )
 }

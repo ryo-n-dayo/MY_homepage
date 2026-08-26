@@ -1,11 +1,11 @@
-# 404-Ryo.github.io
+# ryo-n-dayo.github.io
 
 Ryo の個人ポートフォリオサイトです。
-ギリシャ神話をモチーフにしたアニメーションヒーローから、自己紹介・代表制作物・スキル・連絡先へ続く日英対応のエディトリアルデザインです。
+1 ページに収まるシンプルなプロフィール構成（About / Projects / Skills）で、日英切り替えとライト・ダークテーマに対応しています。
 
 ## 見る
 
-→ https://404-ryo.github.io
+→ https://ryo-n-dayo.github.io
 
 ## 使用技術
 
