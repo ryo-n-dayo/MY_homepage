@@ -1,40 +1,54 @@
-# Testing: 404-Ryo Portfolio Site
+# Testing: ryo-n-dayo Portfolio Site
 
 ## Overview
-Static HTML/CSS portfolio site. Single `index.html` file with inline styles and scripts.
+Vite + React + TypeScript + Tailwind CSS の1ページ構成のポートフォリオ。
+すべての表示内容は `src/App.tsx` 内の `copy` オブジェクト（`ja` / `en`）にデータとして持たせており、
+セクションは Works / Awards / Career / Languages の4つ。画像アセットはなし（`public/` は空）。
 
 ## Local Testing
-- Open `index.html` directly in Chrome via `file:///` protocol — no server needed
-- Run `google-chrome file:///path/to/index.html` to open in browser
+- `npm install` の後 `npm run dev` → http://localhost:5173
+- 本番同等の確認は `npm run build` → `npm run preview`
+- `npm run build` は `tsc -b` を含むので、型エラーがあればここで落ちる
 
 ## What to Test
 
-### Fonts
-- **Google Fonts** are loaded via `<link>` tag in `<head>`. Check the URL to verify which fonts are included.
-- Use DevTools → Elements → select text element → Computed tab → scroll to "Rendered Fonts" to confirm the actual font being used.
-- Console check: `document.querySelector('link[href*="fonts.googleapis"]').href.includes('FontName')` returns true/false.
+### 言語切り替え（JA / EN）
+- ヘッダー右上の `JA` / `EN` ボタン。React の state 切り替えで、`document.documentElement.lang` も追従する
+- 両言語で Works / Awards / Career / Languages の全項目が表示されること
+- `copy.ja` と `copy.en` で配列の要素数が揃っていること（片方だけ項目を足すと表示が食い違う）
 
-### CSS Effects (hover, gradients, animations)
-- **Hover effects** on `.char` elements in hero section ("Hi," and "spark" have individual letter spans). Mouse over each letter to trigger.
-- **Gradient text** uses `background: linear-gradient(...)`, `-webkit-background-clip: text`, `-webkit-text-fill-color: transparent`. Verify in DevTools Computed tab.
-- **Marquee, scroll animations** are CSS-only (`@keyframes`).
+### テーマ切り替え（ライト / ダーク）
+- 月／太陽アイコンのボタンが `<html>` に `dark` クラスを付け外しする（Tailwind の `darkMode: 'class'`）
+- 既定は白ベース。ダーク時に文字・枠線・アバターの前景背景が反転すること
+- 状態は保存していない（リロードで白に戻るのが仕様）
 
-### Responsive
-- The site uses `@media (max-width: 768px)` breakpoints. Resize browser or use DevTools device emulation.
-- Custom cursor is hidden on mobile/touch devices via `(hover: none)` media query.
+### レイアウト
+- 本文は `max-w-2xl` の1カラム。375px 幅でも横スクロールが出ないこと
+- Languages セクションはラベル幅固定の2カラム。日本語・英語どちらでも折り返さないこと
 
-### i18n
-- Language toggle (JP/EN) in nav bar switches text via JS `data-i18n` attributes.
-- Test both languages to verify text displays correctly.
+### リンク
+- メール（`mailto:`）、GitHub、各エントリのリンクが 200 で開けること
+  - Gymgrind は非公開リポジトリではなく紹介ページ https://ryo-n-dayo.github.io/Gymgrind/ を指す
+- 外部リンクはすべて `target="_blank"` + `rel="noreferrer"`
 
-## Key CSS Classes
-- `.italic` — accent text (section titles, "building things"). Uses distinct font/style.
-- `.char` — individual letter spans for hover effects in hero h1.
-- `.marker` — yellow highlight behind "Ryo".
-- `.pill` — tag badges in hero meta section.
+### アクセシビリティ
+- アイコンのみのボタン・リンクに `aria-label` があること
+- 言語ボタンに `aria-pressed` が入っていること
+- `prefers-reduced-motion: reduce` でフェードインが無効になること（`src/index.css`）
 
-## No CI
-This repo has no CI pipeline. Testing is purely visual via browser.
+## 内容を編集する場所
+`src/App.tsx` の配列に追記するだけで項目が増える（`ja` と `en` の両方に同じ形で入れる）。
+- 制作物 → `items`
+- 受賞 → `awardItems`
+- 経歴 → `careerItems`
+- 言語 → `languageItems`
+
+`text` / `stack` / `href` / `linkLabel` は任意。書かなければその行は描画されない。
+
+## CI / デプロイ
+`.github/workflows/deploy.yml` が `main` への push で `npm ci && npm run build` を実行し、
+`dist` を GitHub Pages（https://ryo-n-dayo.github.io/）へ公開する。
+デプロイ後の確認は、配信中の `assets/index-*.js` のハッシュがローカルの `dist/assets/` と一致するかを見るのが確実。
 
 ## Devin Secrets Needed
-None — static site with no authentication or API keys.
+None — 認証もAPIキーも使っていない静的サイト。
