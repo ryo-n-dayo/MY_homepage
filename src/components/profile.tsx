@@ -13,14 +13,20 @@ const copy = {
   ja: {
     role: 'Computer Science 学生 / プロダクト開発', works: 'Works', awards: 'Awards', career: 'Career', languages: 'Languages', blog: 'Blog', repo: 'リポジトリ', theme: 'テーマ切り替え', blogDescription: '経験談や参加したイベントの記録をまとめています。', readMore: '読む',
     items: [{ badge: 'GG', name: 'Gymgrind', sub: 'iOS アプリ · 個人開発', period: '2025 — 現在', text: '重量・回数・休憩を素早く記録できるトレーニングアプリ。履歴カレンダー、成長グラフ、Live Activity のレストタイマーを実装。記録は端末内に保存。', stack: 'Swift · SwiftUI · SwiftData · HealthKit', href: 'https://ryo-n-dayo.github.io/Gymgrind/', linkLabel: '紹介ページ' }] as Entry[],
-    awardItems: [{ badge: '', name: 'サイボウズ特別賞', sub: 'try! Swift Tokyo 2026 ハッカソン for Students', period: '2026年4月', text: '5人チームで高齢者向け iOS コミュニケーションアプリ「れんらくさき」を1日で開発。機能を「電話」と「トーク」に絞ったUI設計と、端末を近づけるだけで連絡先を交換できるオンボーディングを担当しました。', stack: 'Swift · SwiftUI · MultipeerConnectivity', href: 'https://github.com/ryo-n-dayo/IOSapp' }] as Entry[],
+    awardItems: [
+      { badge: '', name: 'サポーターズ賞', sub: '技育CAMPハッカソン 2026年度 Vol.2 · 株式会社サポーターズ', period: '2026年', text: '個人開発した就活支援ダッシュボード「Career Radar」で受賞。企業情報・メール・締切を一元化し、企業比較とGoogle Calendar連携を実装しました。', stack: 'Next.js · TypeScript · Tailwind CSS · Prisma · SQLite · Google APIs', href: 'https://github.com/ryo-n-dayo/Career_Radar', linkLabel: 'GitHub・技術スタック' },
+      { badge: '', name: 'サイボウズ特別賞', sub: 'try! Swift Tokyo 2026 ハッカソン for Students', period: '2026年4月', text: '5人チームで高齢者向け iOS コミュニケーションアプリ「れんらくさき」を1日で開発。機能を「電話」と「トーク」に絞ったUI設計と、端末を近づけるだけで連絡先を交換できるオンボーディングを担当しました。', stack: 'Swift · SwiftUI · MultipeerConnectivity', href: 'https://github.com/ryo-n-dayo/IOSapp' },
+    ] as Entry[],
     careerItems: [{ badge: 'CS', name: 'Computer Science 専攻', sub: '大学 · Cyber Security', period: '在学中' }] as Entry[],
     languageItems: [['日本語', 'ネイティブ'], ['英語', 'ビジネスレベル']],
   },
   en: {
     role: 'Computer Science Student / Product Builder', works: 'Works', awards: 'Awards', career: 'Career', languages: 'Languages', blog: 'Blog', repo: 'Repository', theme: 'Toggle theme', blogDescription: 'Notes from events and lessons from building products.', readMore: 'Read',
     items: [{ badge: 'GG', name: 'Gymgrind', sub: 'iOS app · Personal project', period: '2025 — Present', text: 'A training app for quickly logging weights, reps, and rest. Includes a history calendar, progress charts, and a Live Activity rest timer. Data stays on the device.', stack: 'Swift · SwiftUI · SwiftData · HealthKit', href: 'https://ryo-n-dayo.github.io/Gymgrind/', linkLabel: 'Overview' }] as Entry[],
-    awardItems: [{ badge: '', name: 'Cybozu Special Award', sub: 'try! Swift Tokyo 2026 Hackathon for Students', period: 'Apr 2026', text: 'Built “Renrakusaki”, an iOS communication app for older users, with a team of five in one day. I designed the pared-down UI and an onboarding flow that exchanges contacts by simply holding two devices close together.', stack: 'Swift · SwiftUI · MultipeerConnectivity', href: 'https://github.com/ryo-n-dayo/IOSapp' }] as Entry[],
+    awardItems: [
+      { badge: '', name: 'Supporterz Award', sub: 'Gikyu CAMP Hackathon 2026 Vol.2 · Supporterz Inc.', period: '2026', text: 'Won with my solo project, Career Radar: a job-hunting dashboard that centralizes company information, email, and deadlines, with company comparison and Google Calendar integration.', stack: 'Next.js · TypeScript · Tailwind CSS · Prisma · SQLite · Google APIs', href: 'https://github.com/ryo-n-dayo/Career_Radar', linkLabel: 'GitHub · Tech stack' },
+      { badge: '', name: 'Cybozu Special Award', sub: 'try! Swift Tokyo 2026 Hackathon for Students', period: 'Apr 2026', text: 'Built “Renrakusaki”, an iOS communication app for older users, with a team of five in one day. I designed the pared-down UI and an onboarding flow that exchanges contacts by simply holding two devices close together.', stack: 'Swift · SwiftUI · MultipeerConnectivity', href: 'https://github.com/ryo-n-dayo/IOSapp' },
+    ] as Entry[],
     careerItems: [{ badge: 'CS', name: 'BSc Computer Science', sub: 'University · Cyber Security', period: 'Current' }] as Entry[],
     languageItems: [['Japanese', 'Native'], ['English', 'Business level']],
   },
