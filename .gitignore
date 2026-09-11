@@ -6,3 +6,7 @@ out
 AGENTS.md
 CLAUDE.md
 .claude/
+
+# Separate repositories kept locally for maintenance
+/Career_Radar/
+/Gymgrind/
