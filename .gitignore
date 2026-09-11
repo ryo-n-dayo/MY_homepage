@@ -1,6 +1,7 @@
 node_modules
-dist
+.next
+out
 .DS_Store
 *.tsbuildinfo
-vite.config.js
-vite.config.d.ts
+AGENTS.md
+CLAUDE.md
