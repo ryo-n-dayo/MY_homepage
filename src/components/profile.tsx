@@ -16,3 +16,39 @@ function GithubIcon() { return <svg viewBox="0 0 24 24" width="16" height="16" f
 function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) { return <section className="section"><h2 className="section-label">{icon}{title}</h2><div className="section-content">{children}</div></section> }
 function EntryList({ items, repoLabel, badgeIcon }: { items: readonly Entry[]; repoLabel: string; badgeIcon?: React.ReactNode }) { return <div className="entry-list">{items.map((item) => <article key={item.name} className="entry"><div className="badge">{badgeIcon ?? item.badge}</div><div><h3>{item.name}</h3><p className="muted">{item.sub}</p><p className="date"><Calendar size={12} />{item.period}</p>{item.text && <p className="entry-text">{item.text}</p>}{item.stack && <p className="stack">{item.stack}</p>}{item.href && <a href={item.href} target="_blank" rel="noreferrer" className="external-link">{item.linkLabel ?? repoLabel}<ArrowUpRight size={13} /></a>}</div></article>)}</div> }
 export function Profile({ posts }: { posts: PostSummary[] }) { const [language, setLanguage] = useState<Language>('ja'); const [dark, setDark] = useState(false); const t = copy[language]; useEffect(() => { document.documentElement.lang = language }, [language]); useEffect(() => { document.documentElement.classList.toggle('dark', dark) }, [dark]); return <main className="site-shell"><header className="anim"><div className="hero-mark"><span>Ryo</span></div><div className="profile-row"><div className="avatar">R</div><div className="header-controls"><button type="button" onClick={() => setDark((v) => !v)} className="icon-link" aria-label={t.theme}>{dark ? <Sun size={16} /> : <Moon size={16} />}</button><a href={links.email} className="icon-link" aria-label="Email"><Mail size={16} /></a><a href={links.github} target="_blank" rel="noreferrer" className="icon-link" aria-label="GitHub"><GithubIcon /></a><div className="language-switch">{(['ja', 'en'] as const).map((lang) => <button key={lang} type="button" onClick={() => setLanguage(lang)} aria-pressed={language === lang} className={language === lang ? 'active' : ''}>{lang.toUpperCase()}</button>)}</div></div></div><h1>Ryo</h1><p className="role">{t.role}</p></header><Section icon={<FileText size={13} />} title={t.blog}><p className="blog-intro">{t.blogDescription}</p><div className="post-list">{posts.map((post) => <article key={post.slug} className="post-preview"><p className="date">{post.date}</p><h3><Link href={`/blog/${post.slug}`}>{post.title}</Link></h3><p className="entry-text">{post.description}</p><Link href={`/blog/${post.slug}`} className="external-link">{t.readMore}<ArrowUpRight size={13} /></Link></article>)}</div></Section><Section icon={<FolderGit2 size={13} />} title={t.works}><EntryList items={t.items} repoLabel={t.repo} /></Section><Section icon={<Trophy size={13} />} title={t.awards}><EntryList items={t.awardItems} repoLabel={t.repo} badgeIcon={<Trophy size={14} />} /></Section><Section icon={<Briefcase size={13} />} title={t.career}><EntryList items={t.careerItems} repoLabel={t.repo} /></Section><Section icon={<Languages size={13} />} title={t.languages}><dl className="languages">{t.languageItems.map(([label, level]) => <div key={label}><dt>{label}</dt><dd>{level}</dd></div>)}</dl></Section><footer>© 2026 Ryo</footer></main> }
+
+export function OrderedProfile({ posts }: { posts: PostSummary[] }) {
+  const [language, setLanguage] = useState<Language>('ja')
+  const [dark, setDark] = useState(false)
+  const t = copy[language]
+
+  useEffect(() => { document.documentElement.lang = language }, [language])
+  useEffect(() => { document.documentElement.classList.toggle('dark', dark) }, [dark])
+
+  return <main className="site-shell">
+    <header className="anim">
+      <div className="hero-mark"><span>Ryo</span></div>
+      <div className="profile-row">
+        <div className="avatar">R</div>
+        <div className="header-controls">
+          <button type="button" onClick={() => setDark((value) => !value)} className="icon-link" aria-label={t.theme}>{dark ? <Sun size={16} /> : <Moon size={16} />}</button>
+          <a href={links.email} className="icon-link" aria-label="Email"><Mail size={16} /></a>
+          <a href={links.github} target="_blank" rel="noreferrer" className="icon-link" aria-label="GitHub"><GithubIcon /></a>
+          <div className="language-switch">
+            {(['ja', 'en'] as const).map((lang) => <button key={lang} type="button" onClick={() => setLanguage(lang)} aria-pressed={language === lang} className={language === lang ? 'active' : ''}>{lang.toUpperCase()}</button>)}
+          </div>
+        </div>
+      </div>
+      <h1>Ryo</h1><p className="role">{t.role}</p>
+    </header>
+    <Section icon={<FolderGit2 size={13} />} title={t.works}><EntryList items={t.items} repoLabel={t.repo} /></Section>
+    <Section icon={<Trophy size={13} />} title={t.awards}><EntryList items={t.awardItems} repoLabel={t.repo} badgeIcon={<Trophy size={14} />} /></Section>
+    <Section icon={<Briefcase size={13} />} title={t.career}><EntryList items={t.careerItems} repoLabel={t.repo} /></Section>
+    <Section icon={<Languages size={13} />} title={t.languages}><dl className="languages">{t.languageItems.map(([label, level]) => <div key={label}><dt>{label}</dt><dd>{level}</dd></div>)}</dl></Section>
+    <Section icon={<FileText size={13} />} title={t.blog}>
+      <p className="blog-intro">{t.blogDescription}</p>
+      <div className="post-list">{posts.map((post) => <article key={post.slug} className="post-preview"><p className="date">{post.date}</p><h3><Link href={`/blog/${post.slug}`}>{post.title}</Link></h3><p className="entry-text">{post.description}</p><Link href={`/blog/${post.slug}`} className="external-link">{t.readMore}<ArrowUpRight size={13} /></Link></article>)}</div>
+    </Section>
+    <footer>© 2026 Ryo</footer>
+  </main>
+}
