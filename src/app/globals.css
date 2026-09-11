@@ -26,7 +26,7 @@ html.dark ::selection { background: #ededea; color: #121213; }
 h1 { margin: 1rem 0 0; font: 2rem Georgia, serif; letter-spacing: -.025em; }
 .role { margin: .375rem 0 0; font-size: .875rem; opacity: .55; }
 .section { margin-top: 3.25rem; }
-.section-label { display: flex; align-items: center; gap: .5rem; margin: 0; font-size: .6875rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; opacity: .4; }
+.section-label { display: flex; align-items: center; gap: .625rem; margin: 0; font-size: clamp(.875rem, .7vw + .6rem, 1rem); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .72; }
 .section-content { margin-top: 1.25rem; }
 .entry-list { display: grid; gap: 2.25rem; }
 .entry { display: flex; gap: 1rem; }
@@ -61,5 +61,6 @@ html.dark .post-preview { border-color: rgb(255 255 255 / .15); }
 html.dark footer { border-color: rgb(255 255 255 / .1); }
 @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .anim { animation: fade-up 600ms cubic-bezier(.22, 1, .36, 1) both; }
-@media (max-width: 640px) { html { font-size: 16px; }.site-shell, .article-shell { padding: 2rem 1.25rem 3rem; }.hero-mark { height: 7rem; }.section { margin-top: 2.5rem; } }
+@media (min-width: 768px) { .site-shell { padding-inline: clamp(2rem, 7vw, 6rem); }.entry-list { gap: 2.5rem; } }
+@media (max-width: 640px) { html { font-size: 16px; }.site-shell, .article-shell { padding: 2rem 1.25rem 3rem; }.hero-mark { height: 7rem; }.profile-row { margin-top: -2rem; }.avatar { width: 4rem; height: 4rem; font-size: 1.5rem; }.header-controls { gap: .125rem; }.section { margin-top: 2.5rem; }.section-label { font-size: .875rem; }.section-content { margin-top: 1rem; }.entry-list { gap: 1.75rem; }.entry { gap: .75rem; }.entry-text, .blog-intro { font-size: .9375rem; }.badge { width: 2rem; height: 2rem; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
